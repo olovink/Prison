@@ -2,19 +2,17 @@
 
 declare(strict_types=1);
 
-namespace prison\mine;
+namespace prison\mine\entry;
 
-use pocketmine\block\Block;
-
-class CompositionEntry {
+class MineBlockEntry {
 
     public function __construct(
-        private Block $block,
+        private BlockEntry $blockEntry,
         private float $chance
     ) {}
 
-    public function getBlock(): Block{
-        return $this->block;
+    public function getBlockEntry(): BlockEntry{
+        return $this->blockEntry;
     }
 
     public function getChance(): float{
