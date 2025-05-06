@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace prison\mine\entry;
 
+use pocketmine\block\Block;
+
 class BlockEntry {
 
     public function __construct(
@@ -17,5 +19,9 @@ class BlockEntry {
 
     public function getMeta(): int{
         return $this->meta;
+    }
+
+    public function getBlock(): Block{
+        return Block::get($this->id, $this->meta);
     }
 }

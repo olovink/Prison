@@ -18,5 +18,4 @@ class MineBlockEntry {
     public function getChance(): float{
         return $this->chance;
     }
-
 }

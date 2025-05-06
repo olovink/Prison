@@ -4,22 +4,32 @@ declare(strict_types=1);
 
 namespace prison\mine;
 
-use prison\mine\entry\BlockEntry;
-use prison\mine\entry\MinePosition;
+use pocketmine\level\Level;
+use pocketmine\Server;
+use prison\mine\entry\MineEntry;
 
 class Mine {
 
     public function __construct(
-        private MinePosition $minePosition,
-        /** @var BlockEntry[] */
-        private array $blockPool
+        private string $name = "default",
+        private string $levelName = "world",
+        private ?MineEntry $mineEntry = null
     ) {}
 
-    public function getBlockPool(): array{
-        return $this->blockPool;
+    public function getMineEntry(): MineEntry{
+        return $this->mineEntry;
     }
 
-    public function getMinePosition(): MinePosition{
-        return $this->minePosition;
+    public function getName(): string{
+        return $this->name;
     }
+
+    public function getLevelName(): string{
+        return $this->levelName;
+    }
+
+    public function getLevel(): ?Level{
+        return Server::getInstance()->getLevelByName($this->levelName);
+    }
+
 }
