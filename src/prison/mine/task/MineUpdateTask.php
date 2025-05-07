@@ -27,7 +27,6 @@ class MineUpdateTask extends Task {
         if ($this->getTimer()->isComplete(true)) {
             $this->mineManager->getMineFillManager()->fillAll();
         }
-
     }
 
     public function getTimer(): Timer{

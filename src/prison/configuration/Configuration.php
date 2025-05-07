@@ -17,15 +17,19 @@ class Configuration {
         $config = new Config(
             $this->prison->getDataFolder() . "config.yml",
             Config::YAML,
-            [
-                "server-motd" => "§d§lPrison",
-                "server-name" => "Alacrity",
-                "mode" => "Prison",
-                "mine-update-interval" => 60 * 5,
-            ]
+            $this->getDefaultSettings()
         );
 
         $this->settings = $config->getAll();
+    }
+
+    public function getDefaultSettings(): array{
+        return [
+            "server-motd" => "§d§lPrison",
+            "server-name" => "Alacrity",
+            "mode" => "Prison",
+            "mine-update-interval" => 60 * 5,
+        ];
     }
 
     public function getSettings(): array{
