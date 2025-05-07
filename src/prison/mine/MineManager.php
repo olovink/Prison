@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace prison\mine;
 
+use pocketmine\Server;
 use prison\mine\loader\MineConfigLoader;
 use prison\mine\loader\MineRegister;
+use prison\mine\task\MineUpdateTask;
 use prison\Prison;
 
 class MineManager {
@@ -16,20 +18,26 @@ class MineManager {
     private int $mineId = 0;
 
     private MineConfigLoader $mineConfigLoader;
+    private MineFillManager $mineFillManager;
+    private MineUpdateTask $mineUpdateTask;
 
     public function __construct(
         private Prison $prison
     ) {
         $this->mineConfigLoader = new MineConfigLoader($this->prison);
+        $this->mineFillManager = new MineFillManager($this);
+        $this->mineUpdateTask = new MineUpdateTask($this);
     }
 
     public function init(): void{
         foreach ($this->mineConfigLoader->getData() as $mineName => $mineData) {
             $mine = new Mine();
 
-            MineRegister::registerMine($mine, $mineName, $mineData);
+            MineRegister::register($mine, $mineName, $mineData);
             $this->addMine($mine);
         }
+
+        Server::getInstance()->getScheduler()->scheduleRepeatingTask($this->mineUpdateTask, 20);
     }
 
     public function addMine(Mine $mine): void{
@@ -39,6 +47,23 @@ class MineManager {
         $mineName = $mine->getName();
 
         $this->prison->getLogger()->info("Registered mine '$mineName' with id '$this->mineId'");
+    }
+
+    public function getMineByName(string $name): ?Mine{
+        foreach ($this->mineStorage as $mine) {
+            if (strtolower($mine->getName()) == strtolower($name)) {
+                return $mine;
+            }
+        }
+        return null;
+    }
+
+    public function getMineUpdateRunner(): MineUpdateTask{
+        return $this->mineUpdateTask;
+    }
+
+    public function getMineFillManager(): MineFillManager{
+        return $this->mineFillManager;
     }
 
     public function getMineConfig(): MineConfigLoader{

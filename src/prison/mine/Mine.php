@@ -7,6 +7,7 @@ namespace prison\mine;
 use pocketmine\level\Level;
 use pocketmine\Server;
 use prison\mine\entry\MineEntry;
+use prison\mine\exception\MineException;
 
 class Mine {
 
@@ -28,8 +29,22 @@ class Mine {
         return $this->levelName;
     }
 
+    public function broadcastMessage(string $message): void{
+        foreach ($this->getLevel()->getPlayers() as $player) {
+            $player->sendMessage($message);
+        }
+    }
+
     public function getLevel(): ?Level{
-        return Server::getInstance()->getLevelByName($this->levelName);
+        if (($level = Server::getInstance()->getLevelByName($this->levelName)) == null) {
+            throw new MineException("Level '$this->levelName' not found");
+        }
+
+        if (!Server::getInstance()->isLevelLoaded($this->levelName)) {
+            Server::getInstance()->loadLevel($this->levelName);
+        }
+
+        return $level;
     }
 
 }
