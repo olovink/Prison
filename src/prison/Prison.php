@@ -17,11 +17,10 @@ class Prison extends PluginBase {
 
     public function onLoad(): void{
         self::$instance = $this;
-
         $this->getLogger()->info(TextFormat::YELLOW . "Loading Prison...");
 
-        $this->mineManager = new MineManager($this);
         $this->configuration = new Configuration($this);
+        $this->mineManager = new MineManager($this);
     }
 
     public function onEnable(): void{
