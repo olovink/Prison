@@ -15,7 +15,7 @@ class Timer {
         $this->time = $this->startTime;
     }
 
-    public function isComplete(bool $onTick): bool{
+    public function isComplete(bool $onTick = true): bool{
         if ($onTick) {
             // Типа штоби контроллировать кагда нада атнимать тики
             $this->onTick();
