@@ -34,6 +34,8 @@ class MineManager {
             $mine = new Mine();
 
             MineRegister::register($mine, $mineName, $mineData);
+
+            $this->mineFillManager->fill($mine);
             $this->addMine($mine);
         }
 
