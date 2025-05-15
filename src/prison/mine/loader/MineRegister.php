@@ -58,15 +58,4 @@ class MineRegister {
 
         return $data[$value];
     }
-
-    public static function unregister(Mine $mine, array &$mineStorage): void{
-        $mineName = $mine->getName();
-
-        if (($mineId = Prison::getInstance()->getMineManager()->getMineId($mine)) == null) {
-            throw new MineException(sprintf("Unregister: Mine %s not found in MineStorage", $mineName));
-        }
-
-        unset($mineStorage[$mineId]);
-        Prison::getInstance()->getLogger()->info(sprintf("Mine %s unregistered", $mineName));
-    }
 }

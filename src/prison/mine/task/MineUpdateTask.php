@@ -28,7 +28,7 @@ class MineUpdateTask extends Task {
         foreach ($mineStorage as $mine) {
             if (($mineTimer = $mine->getTimer()) == null) {
                 Prison::getInstance()->getLogger()->error(sprintf("'%s' timer not found, unregistering...", $mine->getName()));
-                MineRegister::unregister($mine, $this->mineManager->mineStorage);
+                $this->mineManager->unregisterMine($mine);
                 return;
             }
 

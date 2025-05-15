@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace prison\mine;
 
+use prison\mine\loader\MineRegister;
 use prison\Prison;
 
 class MineFillManager {
@@ -23,6 +24,8 @@ class MineFillManager {
 
         if ($mine->getMineEntry() == null) {
             Prison::getInstance()->getLogger()->error(sprintf("Prison '%s' not filled, MineEntry is null", $mineName));
+            $this->mineManager->unregisterMine($mine);
+            return;
         }
         $mine->broadcastMessage("Шахта '$mineName' обновлена!");
     }

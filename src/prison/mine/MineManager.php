@@ -81,6 +81,15 @@ class MineManager {
         return null;
     }
 
+    public function unregisterMine(Mine $mine): void{
+        $mineId = $this->getMineId($mine);
+
+        if ($mineId == null) {
+            return;
+        }
+        unset($this->mineStorage[$mineId]);
+    }
+
     public function getMineUpdateRunner(): MineUpdateTask{
         return $this->mineUpdateTask;
     }
