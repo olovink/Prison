@@ -9,8 +9,8 @@ class Timer {
     private int $time;
 
     public function __construct(
-        private int $startTime,
-        private int $step = 1 // every 1 tick
+        private int $startTime, // Начальное время
+        private int $step = 1 // Шаг
     ) {
         $this->time = $this->startTime;
     }
@@ -32,5 +32,13 @@ class Timer {
         if ($this->time > 0) {
             $this->time -= $this->step;
         }
+    }
+
+    public function getTime(): int{
+        return $this->time;
+    }
+
+    public function getStartTime(): int{
+        return $this->startTime;
     }
 }

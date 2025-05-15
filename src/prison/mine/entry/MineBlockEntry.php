@@ -8,14 +8,14 @@ class MineBlockEntry {
 
     public function __construct(
         private BlockEntry $blockEntry,
-        private float $chance
+        private int $chance
     ) {}
 
     public function getBlockEntry(): BlockEntry{
         return $this->blockEntry;
     }
 
-    public function getChance(): float{
+    public function getChance(): int{
         return $this->chance;
     }
 }

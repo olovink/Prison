@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace prison\mine\loader;
 
 use pocketmine\utils\Config;
+use prison\mine\Mine;
 use prison\Prison;
 
 class MineConfigLoader {
@@ -48,7 +49,8 @@ class MineConfigLoader {
                             "chance" => 0
                         ],
                     ],
-                ]
+                ],
+                "timeReset" => 60 * 15
             ],
             "legendary" => [
                 "world-name" => "world",
@@ -66,7 +68,8 @@ class MineConfigLoader {
                             "chance" => 0
                         ],
                     ],
-                ]
+                ],
+                "timeReset" => 60 * 15
             ]
         ];
     }

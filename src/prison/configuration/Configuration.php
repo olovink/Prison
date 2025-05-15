@@ -27,8 +27,7 @@ class Configuration {
         return [
             "server-motd" => "§d§lPrison",
             "server-name" => "Alacrity",
-            "mode" => "Prison",
-            "mine-update-interval" => 60 * 5,
+            "mode" => "Prison"
         ];
     }
 

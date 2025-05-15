@@ -11,6 +11,7 @@ use prison\mine\entry\MinePosition;
 use prison\mine\exception\MineLoaderException;
 use prison\mine\Mine;
 use prison\Prison;
+use prison\utils\Timer;
 
 class MineRegister {
 
@@ -18,6 +19,7 @@ class MineRegister {
         $worldName = self::getValue($mineData, 'world-name');
         $positionData = self::getValue($mineData, 'position');
         $blocks = self::getValue($mineData, 'blocks');
+        $timeReset = self::getValue($mineData, 'timeReset');
 
         $minePosition = new MinePosition(
             $positionData['minX'],
@@ -34,11 +36,18 @@ class MineRegister {
                 [$id, $meta] = explode(':', $blockIdMeta);
                 $blockChance = $blockInfo['chance'];
                 $mineEntries[] = new MineBlockEntry(new BlockEntry((int)$id, (int)$meta), $blockChance);
-                Prison::getInstance()->getLogger()->info("'$mineName' Block ($id:$meta) => $blockChance chance");
+                Prison::getInstance()->getLogger()->info("'$mineName' Block ($id:$meta) $blockChance% chance");
             }
         }
 
-        $mine = new Mine($mineName, $worldName, new MineEntry($minePosition, $mineEntries));
+        Prison::getInstance()->getLogger()->info(sprintf("'%s' time reset: %s seconds", $mineName, $timeReset));
+
+        $mine = new Mine(
+            $mineName,
+            $worldName,
+            new MineEntry($minePosition, $mineEntries),
+            new Timer($timeReset)
+        );
     }
 
     public static function getValue(array $data, string $value): mixed{

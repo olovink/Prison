@@ -13,11 +13,11 @@ class MineFillManager {
     public function fillAll(): void{
         foreach ($this->mineManager->getMineStorage() as $mine) {
             $this->fill($mine);
-
-            $mineName = $mine->getName();
-            $mine->broadcastMessage("Шахта '$mineName' обновлена!");
         }
     }
 
-    public function fill(Mine $mine): void{}
+    public function fill(Mine $mine): void{
+        $mineName = $mine->getName();
+        $mine->broadcastMessage("Шахта '$mineName' обновлена!");
+    }
 }

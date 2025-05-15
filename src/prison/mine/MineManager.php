@@ -46,7 +46,7 @@ class MineManager {
 
         $mineName = $mine->getName();
 
-        $this->prison->getLogger()->info("Registered mine '$mineName' with id '$this->mineId'");
+        $this->prison->getLogger()->info("Registered mine '$mineName' with id '$this->mineId'\n");
     }
 
     public function getMineById(int $mineId): ?Mine{
