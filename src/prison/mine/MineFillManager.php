@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace prison\mine;
 
+use prison\Prison;
+
 class MineFillManager {
 
     public function __construct(
@@ -18,6 +20,10 @@ class MineFillManager {
 
     public function fill(Mine $mine): void{
         $mineName = $mine->getName();
+
+        if ($mine->getMineEntry() == null) {
+            Prison::getInstance()->getLogger()->error(sprintf("Prison '%s' not filled, MineEntry is null", $mineName));
+        }
         $mine->broadcastMessage("Шахта '$mineName' обновлена!");
     }
 }

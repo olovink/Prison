@@ -13,7 +13,7 @@ use prison\Prison;
 class MineManager {
 
     /** @var array<int, Mine> */
-    private array $mineStorage = [];
+    public array $mineStorage = [];
 
     private int $mineId = 0;
 
@@ -39,6 +39,9 @@ class MineManager {
             $this->addMine($mine);
         }
 
+        //$mine = new Mine();
+        //$this->addMine($mine);
+
         Server::getInstance()->getScheduler()->scheduleRepeatingTask($this->mineUpdateTask, 20);
     }
 
@@ -49,6 +52,15 @@ class MineManager {
         $mineName = $mine->getName();
 
         $this->prison->getLogger()->info("Registered mine '$mineName' with id '$this->mineId'\n");
+    }
+
+    public function getMineId(Mine $mine): ?int{
+        foreach ($this->mineStorage as $id => $storageMine) {
+            if ($mine->getName() == $storageMine->getName()) {
+                return $id;
+            }
+        }
+        return null;
     }
 
     public function getMineById(int $mineId): ?Mine{

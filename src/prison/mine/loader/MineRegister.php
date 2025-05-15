@@ -8,6 +8,7 @@ use prison\mine\entry\BlockEntry;
 use prison\mine\entry\MineBlockEntry;
 use prison\mine\entry\MineEntry;
 use prison\mine\entry\MinePosition;
+use prison\mine\exception\MineException;
 use prison\mine\exception\MineLoaderException;
 use prison\mine\Mine;
 use prison\Prison;
@@ -51,10 +52,21 @@ class MineRegister {
     }
 
     public static function getValue(array $data, string $value): mixed{
-        if (($result = $data[$value]) == null) {
+        if (!isset($data[$value])) {
             throw new MineLoaderException("Not found '$value' value");
         }
 
-        return $result;
+        return $data[$value];
+    }
+
+    public static function unregister(Mine $mine, array &$mineStorage): void{
+        $mineName = $mine->getName();
+
+        if (($mineId = Prison::getInstance()->getMineManager()->getMineId($mine)) == null) {
+            throw new MineException(sprintf("Unregister: Mine %s not found in MineStorage", $mineName));
+        }
+
+        unset($mineStorage[$mineId]);
+        Prison::getInstance()->getLogger()->info(sprintf("Mine %s unregistered", $mineName));
     }
 }

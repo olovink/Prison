@@ -12,22 +12,18 @@ use prison\utils\Timer;
 
 class Mine {
 
-    private const MINE_RESET_TIME_DEFAULT = 15 * 60;
-
     public function __construct(
         private string $name = "default",
         private string $levelName = "world",
         private ?MineEntry $mineEntry = null,
         private ?Timer $timer = null
-    ) {
-        if ($this->timer == null) $this->timer = new Timer(self::MINE_RESET_TIME_DEFAULT);
-    }
+    ) {}
 
-    public function getTimer(): Timer{
+    public function getTimer(): ?Timer{
         return $this->timer;
     }
 
-    public function getMineEntry(): MineEntry{
+    public function getMineEntry(): ?MineEntry{
         return $this->mineEntry;
     }
 

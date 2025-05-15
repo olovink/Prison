@@ -6,6 +6,7 @@ namespace prison\mine\task;
 
 use pocketmine\scheduler\Task;
 use pocketmine\Server;
+use prison\mine\loader\MineRegister;
 use prison\mine\MineManager;
 use prison\Prison;
 use prison\utils\Timer;
@@ -25,7 +26,11 @@ class MineUpdateTask extends Task {
         }
 
         foreach ($mineStorage as $mine) {
-            $mineTimer = $mine->getTimer();
+            if (($mineTimer = $mine->getTimer()) == null) {
+                Prison::getInstance()->getLogger()->error(sprintf("'%s' timer not found, unregistering...", $mine->getName()));
+                MineRegister::unregister($mine, $this->mineManager->mineStorage);
+                return;
+            }
 
             if ($mineTimer->isComplete()) {
                 $this->mineManager->getMineFillManager()->fill($mine);

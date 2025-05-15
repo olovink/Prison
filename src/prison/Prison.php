@@ -31,6 +31,10 @@ class Prison extends PluginBase {
         return self::$instance;
     }
 
+    public function getMineManager(): MineManager{
+        return $this->mineManager;
+    }
+
     public function getConfiguration(): Configuration{
         return $this->configuration;
     }
