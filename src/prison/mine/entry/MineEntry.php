@@ -7,10 +7,10 @@ namespace prison\mine\entry;
 class MineEntry {
 
     public function __construct(
-        private MinePosition $minePosition,
+        private readonly MinePosition $minePosition,
         /** @var MineBlockEntry[] */
-        private array $blockPool,
-        private BlockEntry $firstLayer
+        private readonly array        $blockPool,
+        private readonly BlockEntry   $firstLayer
     ) {}
 
     public function getBlockPool(): array{
@@ -19,10 +19,6 @@ class MineEntry {
 
     public function getFirstLayer(): BlockEntry{
         return $this->firstLayer;
-    }
-
-    public function addBlockToPool(MineBlockEntry $blockEntry): void{
-        $this->blockPool[] = $blockEntry;
     }
 
     public function getMinePosition(): MinePosition{

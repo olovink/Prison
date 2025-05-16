@@ -20,11 +20,15 @@ class MinePlayer extends Player {
         $this->statsData = new StatsData(0.0, 0, 1, 0, 0, 0);
     }
 
-    public function onUpdate($tick): void {
-        if (!($tick % 20)) {
-            $this->tickTipBoard();
+    public function onUpdate($currentTick): bool {
+        if (!($currentTick % 20)) {
+            if ($this->isBedrock()) {
+                //
+            } else {
+                $this->tickTipBoard();
+            }
         }
 
-        parent::onUpdate($tick);
+        return parent::onUpdate($currentTick);
     }
 }

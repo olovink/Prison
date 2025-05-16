@@ -12,12 +12,12 @@ use prison\utils\Timer;
 class Mine {
 
     public function __construct(
-        private string $name = "default",
-        private string $levelName = "world",
-        private string $coloredName = "prison_mine",
-        private int $mineLevel = 0,
-        private ?MineEntry $mineEntry = null,
-        private ?Timer $timer = null
+        private readonly string     $name = "default",
+        private readonly string     $levelName = "world",
+        private readonly string     $coloredName = "prison_mine",
+        private readonly int        $mineLevel = 0,
+        private readonly ?MineEntry $mineEntry = null,
+        private readonly ?Timer     $timer = null
     ) {}
 
     public function getMineLevel(): int{

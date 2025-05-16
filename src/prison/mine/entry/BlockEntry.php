@@ -9,8 +9,8 @@ use pocketmine\block\Block;
 class BlockEntry {
 
     public function __construct(
-        private int $id,
-        private int $meta
+        private readonly int $id,
+        private readonly int $meta
     ) {}
 
     public function getId(): int{

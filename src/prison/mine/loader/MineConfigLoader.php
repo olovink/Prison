@@ -13,7 +13,7 @@ class MineConfigLoader {
     private array $data;
 
     public function __construct(
-        private Prison $prison
+        private readonly Prison $prison
     ) {
         $config = new Config(
             $this->prison->getDataFolder() . "mines.yml",

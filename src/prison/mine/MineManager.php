@@ -24,7 +24,7 @@ class MineManager {
     private MineUpdateTask $mineUpdateTask;
 
     public function __construct(
-        private Prison $prison
+        private readonly Prison $prison
     ) {
         $this->mineConfigLoader = new MineConfigLoader($this->prison);
         $this->mineFillManager = new MineFillManager($this);
@@ -45,7 +45,7 @@ class MineManager {
         //$this->addMine($mine);
 
         //$this->prison->getScheduler()->scheduleRepeatingTask($this->mineUpdateTask, 20);
-        Server::getInstance()->getScheduler()->scheduleRepeatingTask($this->mineUpdateTask, 20);
+        $this->prison->getScheduler()->scheduleRepeatingTask($this->mineUpdateTask, 20);
     }
 
     public function addMine(Mine $mine): void{

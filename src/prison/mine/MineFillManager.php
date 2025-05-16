@@ -12,7 +12,7 @@ use prison\Prison;
 class MineFillManager {
 
     public function __construct(
-        private MineManager $mineManager
+        private readonly MineManager $mineManager
     ) {}
 
     public function fillAll(): void{

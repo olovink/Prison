@@ -15,7 +15,7 @@ class MineUpdateTask extends Task {
 
 
     public function __construct(
-        private MineManager $mineManager
+        private readonly MineManager $mineManager
     ) {}
 
     public function onRun(int $currentTick): void {

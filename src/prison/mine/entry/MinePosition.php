@@ -9,13 +9,13 @@ use pocketmine\math\AxisAlignedBB;
 class MinePosition {
 
     public function __construct(
-        private int $minX,
-        private int $minY,
-        private int $minZ,
+        private readonly int $minX,
+        private readonly int $minY,
+        private readonly int $minZ,
 
-        private int $maxX,
-        private int $maxY,
-        private int $maxZ
+        private readonly int $maxX,
+        private readonly int $maxY,
+        private readonly int $maxZ
     ) {}
 
     // ===========================

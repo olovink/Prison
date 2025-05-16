@@ -7,8 +7,8 @@ namespace prison\mine\entry;
 class MineBlockEntry {
 
     public function __construct(
-        private BlockEntry $blockEntry,
-        private int $chance
+        private readonly BlockEntry $blockEntry,
+        private readonly int        $chance
     ) {}
 
     public function getBlockEntry(): BlockEntry{
