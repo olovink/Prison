@@ -20,7 +20,7 @@ dirty:
       chance: 30
     "12:1":
       chance: 1
-  timeReset: 900
+  timeReset: 5
 jungle:
   world-name: world
   coloredName: §aРастительная шахта§r
@@ -40,5 +40,5 @@ jungle:
       chance: 40
     "103:0":
       chance: 10
-  timeReset: 900
+  timeReset: 5
 ...
