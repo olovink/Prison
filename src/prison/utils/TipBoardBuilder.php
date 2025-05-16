@@ -10,7 +10,7 @@ use pocketmine\utils\TextFormat;
 class TipBoardBuilder {
 
     private array $strings = [];
-    
+
     public function addLine(string $text): self{
         $this->strings[] = $text;
         return $this;

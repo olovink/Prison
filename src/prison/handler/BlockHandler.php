@@ -13,13 +13,16 @@ use prison\Prison;
 class BlockHandler implements Listener {
 
     public function onBreak(BlockBreakEvent $event): void{
-        if (!Prison::getInstance()->getMineManager()->insideMine($event->getBlock())) {
+        /** @var MinePlayer $player */
+        $player = $event->getPlayer();
+
+        if (
+            !Prison::getInstance()->getMineManager()->insideMine($event->getBlock()) &&
+            !$player->isOp()
+        ) {
             $event->setCancelled();
             return;
         }
-
-        /** @var MinePlayer $player */
-        $player = $event->getPlayer();
 
         $player->getStatsData()->addBlockBreakCount();
 
@@ -32,7 +35,13 @@ class BlockHandler implements Listener {
     }
 
     public function onPlace(BlockPlaceEvent $event): void{
-        if (!Prison::getInstance()->getMineManager()->insideMine($event->getBlock())) {
+        /** @var MinePlayer $player */
+        $player = $event->getPlayer();
+
+        if (
+            !Prison::getInstance()->getMineManager()->insideMine($event->getBlock()) &&
+            !$player->isOp()
+        ) {
             $event->setCancelled();
         }
     }

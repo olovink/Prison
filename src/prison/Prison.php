@@ -8,6 +8,7 @@ use pocketmine\plugin\PluginBase;
 use pocketmine\utils\TextFormat;
 use prison\configuration\Configuration;
 use prison\handler\BlockHandler;
+use prison\handler\PlayerHandler;
 use prison\mine\MineManager;
 use prison\command\CommandManager;
 use prison\player\PlayerCreation;
@@ -33,6 +34,7 @@ class Prison extends PluginBase {
 
         $this->getServer()->getPluginManager()->registerEvents(new BlockHandler(), $this);
         $this->getServer()->getPluginManager()->registerEvents(new PlayerCreation(), $this);
+        $this->getServer()->getPluginManager()->registerEvents(new PlayerHandler(), $this);
     }
 
     public static function getInstance(): self{
