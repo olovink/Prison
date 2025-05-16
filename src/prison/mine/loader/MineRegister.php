@@ -18,9 +18,12 @@ class MineRegister {
 
     public static function register(Mine &$mine, string $mineName, array $mineData): void{
         $worldName = self::getValue($mineData, 'world-name');
+        $coloredName = self::getValue($mineData, 'coloredName');
+        $mineLevel = self::getValue($mineData, "mine-level");
         $positionData = self::getValue($mineData, 'position');
         $blocks = self::getValue($mineData, 'blocks');
         $timeReset = self::getValue($mineData, 'timeReset');
+        $firstLayer = self::getValue($mineData, 'firstLayer');
 
         $minePosition = new MinePosition(
             $positionData['minX'],
@@ -43,10 +46,14 @@ class MineRegister {
 
         Prison::getInstance()->getLogger()->info(sprintf("'%s' time reset: %s seconds", $mineName, $timeReset));
 
+        [$id, $meta] = explode(':', $firstLayer);
+
         $mine = new Mine(
             $mineName,
             $worldName,
-            new MineEntry($minePosition, $mineEntries),
+            $coloredName,
+            $mineLevel,
+            new MineEntry($minePosition, $mineEntries, new BlockEntry((int) $id, (int) $meta)),
             new Timer($timeReset)
         );
     }

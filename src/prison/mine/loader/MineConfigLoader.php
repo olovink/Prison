@@ -30,8 +30,9 @@ class MineConfigLoader {
 
     public function getDefaultData(): array{
         return [
-            "default" => [
+            "dirty" => [
                 "world-name" => "world",
+                "coloredName" => "§7Пыльная шахта§r",
                 "position" => [
                     "minX" => 0,
                     "minY" => 0,
@@ -42,18 +43,22 @@ class MineConfigLoader {
                 ],
                 "blocks" => [
                     [
-                        "1:0" => [
-                            "chance" => 0
+                        "3:0" => [
+                            "chance" => 100
                         ],
-                        "0:0" => [
-                            "chance" => 0
+                        "12:0" => [
+                            "chance" => 70
                         ],
+                        "13:0" => [
+                            "chance" => 50
+                        ]
                     ],
                 ],
-                "timeReset" => 60 * 15
+                "timeReset" => 60 * 5 * 15
             ],
-            "legendary" => [
+            "jungle" => [
                 "world-name" => "world",
+                "coloredName" => "§aРастительная шахта",
                 "position" => [
                     "minX" => 1,
                     "minY" => 1,
@@ -64,12 +69,18 @@ class MineConfigLoader {
                 ],
                 "blocks" => [
                     [
-                        "0:0" => [
-                            "chance" => 0
+                        "35:13" => [
+                            "chance" => 100
                         ],
+                        "17:3" => [
+                            "chance" => 50
+                        ],
+                        "103:0" => [
+                            "chance" => 30
+                        ]
                     ],
                 ],
-                "timeReset" => 60 * 15
+                "timeReset" => 60 * 5 * 15
             ]
         ];
     }

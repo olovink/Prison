@@ -7,7 +7,6 @@ namespace prison\mine;
 use pocketmine\level\Level;
 use pocketmine\Server;
 use prison\mine\entry\MineEntry;
-use prison\mine\exception\MineException;
 use prison\utils\Timer;
 
 class Mine {
@@ -15,9 +14,19 @@ class Mine {
     public function __construct(
         private string $name = "default",
         private string $levelName = "world",
+        private string $coloredName = "prison_mine",
+        private int $mineLevel = 0,
         private ?MineEntry $mineEntry = null,
         private ?Timer $timer = null
     ) {}
+
+    public function getMineLevel(): int{
+        return $this->mineLevel;
+    }
+
+    public function getColoredName(): string{
+        return $this->coloredName;
+    }
 
     public function getTimer(): ?Timer{
         return $this->timer;
@@ -41,16 +50,8 @@ class Mine {
         }
     }
 
-    public function getLevel(): ?Level{
-        if (($level = Server::getInstance()->getLevelByName($this->levelName)) == null) {
-            throw new MineException("Level '$this->levelName' not found");
-        }
-
-        if (!Server::getInstance()->isLevelLoaded($this->levelName)) {
-            Server::getInstance()->loadLevel($this->levelName);
-        }
-
-        return $level;
+    public function getLevel(): Level{
+        return Server::getInstance()->getLevelByName($this->levelName);
     }
 
 }

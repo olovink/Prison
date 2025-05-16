@@ -48,7 +48,7 @@ class MinePosition {
 
     // ===========================
 
-    public function getAsAxisAlignedBB(): AxisAlignedBB{
+    public function getAxisAlignedBB(): AxisAlignedBB{
         return new AxisAlignedBB(
             $this->minX,
             $this->minY,

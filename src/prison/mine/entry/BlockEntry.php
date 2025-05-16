@@ -21,7 +21,7 @@ class BlockEntry {
         return $this->meta;
     }
 
-    public function getBlock(): Block{
+    public function asBlock(): Block{
         return Block::get($this->id, $this->meta);
     }
 }

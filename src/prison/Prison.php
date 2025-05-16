@@ -8,6 +8,7 @@ use pocketmine\plugin\PluginBase;
 use pocketmine\utils\TextFormat;
 use prison\configuration\Configuration;
 use prison\mine\MineManager;
+use prison\command\CommandManager;
 
 class Prison extends PluginBase {
 
@@ -21,6 +22,8 @@ class Prison extends PluginBase {
 
         $this->configuration = new Configuration($this);
         $this->mineManager = new MineManager($this);
+
+        CommandManager::init();
     }
 
     public function onEnable(): void{

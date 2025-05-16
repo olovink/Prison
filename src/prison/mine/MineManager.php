@@ -42,6 +42,7 @@ class MineManager {
         //$mine = new Mine();
         //$this->addMine($mine);
 
+       //$this->prison->getScheduler()->scheduleRepeatingTask($this->mineUpdateTask, 20);
         Server::getInstance()->getScheduler()->scheduleRepeatingTask($this->mineUpdateTask, 20);
     }
 
