@@ -23,7 +23,6 @@ class MineFillManager {
 
     public function fill(Mine $mine): void{
         $mineName = $mine->getName();
-        $mineColoredName = $mine->getColoredName();
 
         if ($mine->getMineEntry() == null) {
             Prison::getInstance()->getLogger()->error(sprintf("Prison '%s' not filled, MineEntry is null", $mineName));
@@ -47,13 +46,11 @@ class MineFillManager {
             if ($this->mineManager->insideMine($player)) {
                 $player->teleport(new Vector3(
                     $player->getFloorX(),
-                    $level->getHighestBlockAt($player->getFloorX(), $player->getFloorZ()),
+                    $level->getHighestBlockAt($player->getFloorX(), $player->getFloorZ()) + 1,
                     $player->getFloorZ()
                 ));
             }
         }
-
-        $mine->broadcastMessage("'$mineColoredName' обновлена!");
     }
 
     private function generateCoordinates($minePosition): Generator{
