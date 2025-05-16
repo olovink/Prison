@@ -47,18 +47,31 @@ class MineFillManager {
         for ($x = $minX; $x <= $maxX; ++$x) {
             for ($y = $minY; $y <= $maxY; ++$y) {
                 for ($z = $minZ; $z <= $maxZ; ++$z) {
-
                     if ($y == $maxY) {
                         $level->setBlock(new Vector3($x, $y, $z), $mine->getMineEntry()->getFirstLayer()->asBlock());
-                        return;
+                    } else {
+                        $blockEntry = $this->pickBlock($mine);
+                        $level->setBlock(new Vector3($x, $y, $z), $blockEntry->asBlock());
                     }
-
-                    $blockEntry = $this->pickBlock($mine);
-                    $level->setBlock(new Vector3($x, $y, $z), $blockEntry->asBlock());
                 }
             }
         }
-        $mine->broadcastMessage("Шахта '$mineColoredName' обновлена!");
+
+        foreach ($level->getPlayers() as $player) {
+            if ($this->mineManager->insideMine($player)) {
+                $player->teleport(new Vector3(
+                        $player->getFloorX(),
+                            $level->getHighestBlockAt(
+                                $player->getFloorX(),
+                                $player->getFloorZ()
+                            ),
+                        $player->getFloorZ()
+                    )
+                );
+            }
+        }
+
+        $mine->broadcastMessage("'$mineColoredName' обновлена!");
     }
 
     public function pickBlock(Mine $mine): ?BlockEntry {

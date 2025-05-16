@@ -7,6 +7,7 @@ namespace prison\handler;
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\block\BlockPlaceEvent;
 use pocketmine\event\Listener;
+use prison\player\MinePlayer;
 use prison\Prison;
 
 class BlockHandler implements Listener {
@@ -17,11 +18,16 @@ class BlockHandler implements Listener {
             return;
         }
 
+        /** @var MinePlayer $player */
+        $player = $event->getPlayer();
+
+        $player->getStatsData()->addBlockBreakCount();
+
         $remaining = $event->getPlayer()->getInventory()->addItem(...$event->getDrops());
         $event->setDrops([]);
 
         if (!empty($remaining)) {
-            $event->getPlayer()->sendMessage("§cЯ так устал, больше не унести.");
+            $player->sendMessage("§cЯ так устал, больше не унести.");
         }
     }
 
