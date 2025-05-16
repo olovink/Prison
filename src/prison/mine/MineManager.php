@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace prison\mine;
 
+use pocketmine\math\Vector3;
 use pocketmine\Server;
 use prison\mine\loader\MineConfigLoader;
 use prison\mine\loader\MineRegister;
 use prison\mine\task\MineUpdateTask;
 use prison\Prison;
+use prison\utils\MathUtils;
 
 class MineManager {
 
@@ -89,6 +91,18 @@ class MineManager {
             return;
         }
         unset($this->mineStorage[$mineId]);
+    }
+
+    public function insideMine(Vector3 $vector3): bool{
+        $isInside = false;
+
+        foreach ($this->mineStorage as $mine) {
+            if (MathUtils::isInside($vector3, $mine->getMineEntry()->getMinePosition()->getAxisAlignedBB())) {
+                $isInside = true;
+            }
+        }
+
+        return $isInside;
     }
 
     public function getMineUpdateRunner(): MineUpdateTask{

@@ -7,6 +7,7 @@ namespace prison;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\TextFormat;
 use prison\configuration\Configuration;
+use prison\handler\BlockHandler;
 use prison\mine\MineManager;
 use prison\command\CommandManager;
 
@@ -28,6 +29,8 @@ class Prison extends PluginBase {
 
     public function onEnable(): void{
         $this->mineManager->init();
+
+        $this->getServer()->getPluginManager()->registerEvents(new BlockHandler(), $this);
     }
 
     public static function getInstance(): self{
